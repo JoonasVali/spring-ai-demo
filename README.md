@@ -114,27 +114,3 @@ Run the test suite with:
 ```bash
 mvn test
 ```
-
-## Use Cases
-
-This demo is useful for:
-- Learning Spring AI tool calling capabilities
-- Understanding AI tool integration patterns
-- Building AI applications that can perform external operations
-- Demonstrating AI agent capabilities
-
-## Future Enhancements
-
-- Add more AI tools (file operations, API calls, etc.)
-- Implement tool chaining and workflows
-- Add authentication and rate limiting
-- Support for different AI model providers
-- Web interface for tool testing
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
-
-## License
-
-This is a demo project for educational purposes.
