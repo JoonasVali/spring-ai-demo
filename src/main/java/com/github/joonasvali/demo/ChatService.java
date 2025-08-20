@@ -26,7 +26,7 @@ public class ChatService {
       logger.debug("Generating joke about: {}", jokeSubject);
 
       Prompt prompt = new Prompt("Tell a funny joke about " + jokeSubject + ".");
-      ChatResponse response = chatClient.prompt(prompt).call().chatResponse();
+      ChatResponse response = chatClient.prompt(prompt).tools(new RandomNumberTool()).call().chatResponse();
 
       if (response == null) {
         throw new ChatServiceException("Invalid response from AI service");
