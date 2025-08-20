@@ -1,107 +1,140 @@
-# Spring AI Demo - Refactored ChatService
+# Spring AI Demo Project
 
-This project demonstrates a refactored Spring AI ChatService that follows best practices for enterprise applications.
+This is a demonstration project showcasing Spring AI integration with OpenAI, featuring AI tool calling capabilities.
 
 ## Overview
 
-The `ChatService` has been completely refactored to provide:
-
-- **Better Error Handling**: Custom exceptions and proper error messages
-- **Input Validation**: Parameter validation and null checks
-- **Comprehensive Logging**: Debug and error logging throughout
-- **Clean Architecture**: Separation of concerns and better method organization
-- **Unit Testing**: Comprehensive test coverage
-- **Documentation**: JavaDoc comments for all public methods
+This project demonstrates how to use Spring AI to:
+- Integrate with OpenAI's language models
+- Create custom AI tools using the `@Tool` annotation
+- Enable AI models to call external tools during conversations
 
 ## Features
 
-### ChatService Methods
+### AI Tool Integration
+- **RandomNumberTool**: A custom tool that generates random numbers within specified limits
+- Uses Spring AI's `@Tool` annotation for automatic tool discovery
+- Demonstrates how AI models can call external functions
 
-1. **`generateJoke(String subject)`** - Generates a joke about a specific subject
-   - If subject is null or empty, defaults to "programming"
-   - Includes proper error handling and logging
+### OpenAI Integration
+- Configured with Spring AI starter for OpenAI
+- Supports chat completions with tool calling
+- Automatic tool schema generation and validation
 
-2. **`generateProgrammingJoke()`** - Generates a programming joke (convenience method)
+### Existing Functionality
+- **ChatService**: Handles AI chat interactions
+- **Joke Generation**: Generates jokes on various subjects
+- **Health Check**: Basic service status endpoint
 
-3. **`generateCustomResponse(String customPrompt)`** - Generates custom AI responses
-   - Validates input parameters
-   - Handles various error scenarios
+## Project Structure
 
-### API Endpoints
+```
+src/main/java/com/github/joonasvali/demo/
+├── DemoApplication.java          # Main Spring Boot application
+├── MyController.java             # REST controller for API endpoints
+├── ChatService.java              # Service for AI chat interactions
+├── ChatServiceException.java     # Custom exception handling
+└── RandomNumberTool.java         # AI tool for random number generation
+```
 
-- **`GET /`** - Health check endpoint
-- **`GET /joke?subject={topic}`** - Generate joke about specific topic
-- **`GET /joke/programming`** - Generate programming joke
-- **`GET /chat?prompt={text}`** - Generate custom AI response
+## Configuration
 
-## Architecture Improvements
+### Prerequisites
+- Java 23+
+- Maven 3.6+
+- OpenAI API key
 
-### 1. Exception Handling
-- Custom `ChatServiceException` for AI-related errors
-- Proper exception propagation and logging
-- Input validation with `IllegalArgumentException`
+### Environment Setup
+Set your OpenAI API key as an environment variable:
+```bash
+export OPENAI_API_KEY=your_api_key_here
+```
 
-### 2. Logging
-- SLF4J logging framework
-- Debug logging for successful operations
-- Error logging with stack traces
-- Informational logging for service initialization
-
-### 3. Configuration
-- Dedicated `ChatConfiguration` class
-- Bean-based ChatClient configuration
-- Centralized configuration management
-
-### 4. Testing
-- Comprehensive unit tests with Mockito
-- Tests for all public methods
-- Error scenario testing
-- Mock-based testing for external dependencies
-
-## Code Quality Improvements
-
-- **Clean Code Principles**: Descriptive method names and clear intent
-- **Single Responsibility**: Each method has a single, clear purpose
-- **Dependency Injection**: Constructor-based injection instead of field injection
-- **Immutability**: Final fields and proper encapsulation
-- **Documentation**: Comprehensive JavaDoc for all public APIs
+Or add it to `application.properties`:
+```properties
+spring.ai.openai.api-key=your_api_key_here
+```
 
 ## Running the Application
 
-1. Ensure you have Java 23+ and Maven installed
-2. Configure your AI service credentials in `application.properties`
-3. Run: `mvn spring-boot:run`
-4. Access the API at `http://localhost:8080`
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd spring-ai-demo
+   ```
 
-## Testing
+2. **Set your OpenAI API key**
+   ```bash
+   export OPENAI_API_KEY=your_api_key_here
+   ```
 
+3. **Run the application**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+4. **Access the API**
+   - Health check: `GET http://localhost:8080/`
+   - Generate joke: `GET http://localhost:8080/joke?subject=programming`
+
+## AI Tool Usage
+
+The `RandomNumberTool` is automatically available to AI models through Spring AI's tool calling system. When an AI model needs to generate a random number, it can call this tool with:
+
+- **Function**: `generateRandomNumber`
+- **Parameters**: 
+  - `min` (integer): Minimum value (inclusive)
+  - `max` (integer): Maximum value (inclusive)
+- **Returns**: Random integer between min and max
+
+## Dependencies
+
+- **Spring Boot**: 3.5.4
+- **Spring AI**: 1.0.1
+- **OpenAI Integration**: Spring AI starter for OpenAI models
+- **Java Version**: 23
+
+## Key Spring AI Features Demonstrated
+
+1. **Tool Calling**: AI models can invoke custom tools during conversations
+2. **Automatic Schema Generation**: Tool schemas are automatically generated from `@Tool` annotations
+3. **Seamless Integration**: Tools are automatically discovered and registered
+4. **Error Handling**: Proper exception handling and logging for tool operations
+
+## Development
+
+### Adding New Tools
+To add new AI tools, simply:
+1. Create a new class with `@Component` annotation
+2. Add methods with `@Tool` annotation
+3. Spring AI will automatically discover and register them
+
+### Testing
 Run the test suite with:
 ```bash
 mvn test
 ```
 
-## Dependencies
+## Use Cases
 
-- Spring Boot 3.5.4
-- Spring AI 1.0.1
-- JUnit 5 with Mockito for testing
-- SLF4J for logging
-
-## Best Practices Implemented
-
-1. **Constructor Injection**: Proper dependency injection
-2. **Input Validation**: Null checks and parameter validation
-3. **Error Handling**: Custom exceptions and proper error propagation
-4. **Logging**: Comprehensive logging for debugging and monitoring
-5. **Testing**: Unit tests with proper mocking
-6. **Documentation**: JavaDoc for all public methods
-7. **Configuration**: Centralized configuration management
-8. **Clean Architecture**: Separation of concerns and single responsibility
+This demo is useful for:
+- Learning Spring AI tool calling capabilities
+- Understanding AI tool integration patterns
+- Building AI applications that can perform external operations
+- Demonstrating AI agent capabilities
 
 ## Future Enhancements
 
-- Add rate limiting for API endpoints
-- Implement caching for repeated requests
-- Add metrics and monitoring
-- Support for different AI models
-- Async processing for long-running requests
+- Add more AI tools (file operations, API calls, etc.)
+- Implement tool chaining and workflows
+- Add authentication and rate limiting
+- Support for different AI model providers
+- Web interface for tool testing
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
+
+## License
+
+This is a demo project for educational purposes.
