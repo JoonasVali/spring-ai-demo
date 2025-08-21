@@ -1,6 +1,7 @@
 # Spring AI Demo Project
 
-This is a demonstration project showcasing Spring AI integration with OpenAI, featuring AI tool calling capabilities.
+This is a demonstration project showcasing Spring AI integration with OpenAI, featuring AI tool calling capabilities 
+and structured output.
 
 ## Overview
 
@@ -8,6 +9,7 @@ This project demonstrates how to use Spring AI to:
 - Integrate with OpenAI's language models
 - Create custom AI tools using the `@Tool` annotation
 - Enable AI models to call external tools during conversations
+- Generate structured outputs
 
 ## Features
 

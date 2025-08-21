@@ -1,9 +1,9 @@
 package com.github.joonasvali.demo;
 
+import com.github.joonasvali.demo.model.Joke;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -20,19 +20,14 @@ public class ChatService {
     this.chatClient = chatClientBuilder.build();
   }
 
-  public String generateJoke(String subject) {
+  public Joke generateJoke(String subject) {
     try {
       String jokeSubject = StringUtils.hasText(subject) ? subject.trim() : DEFAULT_JOKE_SUBJECT;
       logger.debug("Generating joke about: {}", jokeSubject);
 
       Prompt prompt = new Prompt("Tell a funny joke about " + jokeSubject + ".");
-      ChatResponse response = chatClient.prompt(prompt).tools(new RandomNumberTool()).call().chatResponse();
+      Joke joke = chatClient.prompt(prompt).tools(new RandomNumberTool()).call().entity(Joke.class);
 
-      if (response == null) {
-        throw new ChatServiceException("Invalid response from AI service");
-      }
-
-      String joke = response.getResult().getOutput().getText();
       logger.debug("Successfully generated joke about: {}", jokeSubject);
 
       return joke;
