@@ -5,13 +5,12 @@ spring:
         client:
           host: "localhost"
           port: 19530
-          username: "root"
-          password: "milvus"
         databaseName: "default"
         collectionName: "vector_store"
         embeddingDimension: 1536
         indexType: IVF_FLAT
         metricType: COSINE
+        initialize-schema: true
     openai:
       api-key: ${OPENAI_API_KEY}
   application:
