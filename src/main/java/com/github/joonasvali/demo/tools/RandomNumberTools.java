@@ -1,4 +1,4 @@
-package com.github.joonasvali.demo;
+package com.github.joonasvali.demo.tools;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 @Component
-public class RandomNumberTool {
+public class RandomNumberTools {
 
-  private static final Logger logger = LoggerFactory.getLogger(RandomNumberTool.class);
+  private static final Logger logger = LoggerFactory.getLogger(RandomNumberTools.class);
   private final Random random = new Random();
 
   @Tool(name = "generateRandomNumber", description = "Generates a random integer number within the specified range (inclusive)")
